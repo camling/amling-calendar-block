@@ -22,10 +22,7 @@ add_action( 'block_categories', 'adding_amling_block_category', 10, 2 );
 
 
  function load_block_files(){
-    $script_params = array(
-        'library_id' => get_option('calendar_block_options_option_name')
-    );
-
+    
      wp_enqueue_script(
          'amling-plugin-unique-handle', // unique handle name
          plugin_dir_url(__FILE__) . 'amling-calendar-block.js', // source of JS
@@ -33,6 +30,14 @@ add_action( 'block_categories', 'adding_amling_block_category', 10, 2 );
          1.1,
          true
      );
+
+
+     $script_params = array(
+        'library_id' => get_option('calendar_block_options_option_name')
+    );
+
+    wp_localize_script('amling-plugin-unique-handle', 'library_id_object', $script_params);
+
  }
 
  add_action('enqueue_block_editor_assets', 'load_block_files');
