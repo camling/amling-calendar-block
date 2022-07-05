@@ -7,6 +7,7 @@ wp.blocks.registerBlockType("amling/demo-block",{
     category: "awesome-blocks", // Under which block category your block will be. I'm making mine awesome
     attributes: {
         calendar_id: {type: "string"},
+        calendar_select: {type: "string"},
         calendar_title: {type: "string"},
         calendar_date: {type: "string"},
         calendar_time: {type: "string"},
@@ -14,12 +15,19 @@ wp.blocks.registerBlockType("amling/demo-block",{
         calendar_link: {type:"string"}
     }, // the data we want to track
     
+    
     // calls this function when the block is edited
     edit: function(props){
 
+      console.log("edit function called");
+
+      function update_id(e) {
+        props.setAttributes({calendar_id: e.target.value});  
+      }
+
         function update_content(e) {
-            props.setAttributes({calendar_id: e.target.value})
-            
+          // console.log(e);
+            props.setAttributes({calendar_id: e.target.value});     
         }
 
         function removeTags(str) {
@@ -49,7 +57,7 @@ wp.blocks.registerBlockType("amling/demo-block",{
             async function fetchCalendarEvents() 
             {
              
-                console.log(library_id_object.library_id.library_id_0);
+              
                 const response = await fetch('https://'+library_id_object.library_id.library_id_0+'.evanced.info/api/signup/eventlist?isOngoingVisible=true&isSpacesReservationVisible=true&onlyRegistrationEnabled=false&onlyFeaturedEvents=false&eventId='+ id);
                 if (!response.ok) {
                   const message = `An error has occurred: ${response.status}`;
@@ -85,9 +93,37 @@ wp.blocks.registerBlockType("amling/demo-block",{
        
     }
 
+    function get_current_events()
+    {
+      async function fetchAllCalendarEvents() 
+        {
+          
+       
+            const response = await fetch('https://'+library_id_object.library_id.library_id_0+'.evanced.info/api/signup/eventlist?isOngoingVisible=true&isSpacesReservationVisible=false&onlyRegistrationEnabled=false&onlyFeaturedEvents=false');
+            if (!response.ok) {
+              const message = `An error has occurred: ${response.status}`;
+              throw new Error(message);
+            }
+            const events = await response.json();
+            return events;
+        }
+        let all_events = fetchAllCalendarEvents();
+    
+        return all_events;
+    
+    }
+
+    // let event_array = get_current_events();
+    // console.log(event_array);
+
         return (wp.element.createElement("div", null, 
-                wp.element.createElement("select",{}, 
-                  wp.element.createElement("option", {value: "A"}, "Option A"), ),
+                wp.element.createElement("select",{onChange: update_id}, 
+                  wp.element.createElement("option", {disabled:true, selected:true, value:"none"},"select an option"),
+
+                  wp.element.createElement("option", {value: 2551158}, "Option A"), 
+                  wp.element.createElement("option", {value: 41859}, "Option B")
+                  
+                ), 
                 wp.element.createElement("h3", null, "Enter Calendar Event ID"), 
                 wp.element.createElement("input", {
                   type: "text",
@@ -99,7 +135,8 @@ wp.blocks.registerBlockType("amling/demo-block",{
                   value: "Get Data",
                   onClick: get_calendar_data
           })));
-    },
+    }, //End Edit
+
     // calls this function when the block is saved and outputs the html
     save: function(props){
         function write_calendar_data()
