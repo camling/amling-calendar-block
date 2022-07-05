@@ -1,3 +1,5 @@
+
+
 wp.blocks.registerBlockType("amling/demo-block",{
     title: "Calendar Details" ,
     description: "User enters calendar id and gets calendar data back which is added to page",
@@ -46,7 +48,9 @@ wp.blocks.registerBlockType("amling/demo-block",{
 
             async function fetchCalendarEvents() 
             {
-                const response = await fetch('https://mppl.evanced.info/api/signup/eventlist?isOngoingVisible=true&isSpacesReservationVisible=true&onlyRegistrationEnabled=false&onlyFeaturedEvents=false&eventId='+ id);
+             
+                console.log(library_id_object.library_id.library_id_0);
+                const response = await fetch('https://'+library_id_object.library_id.library_id_0+'.evanced.info/api/signup/eventlist?isOngoingVisible=true&isSpacesReservationVisible=true&onlyRegistrationEnabled=false&onlyFeaturedEvents=false&eventId='+ id);
                 if (!response.ok) {
                   const message = `An error has occurred: ${response.status}`;
                   throw new Error(message);
@@ -58,7 +62,7 @@ wp.blocks.registerBlockType("amling/demo-block",{
               fetchCalendarEvents()
               .then(events => {
 
-                let link = `https://mppl.evanced.info/signup/eventdetails?eventid=${props.attributes.calendar_id}&lib=0`;
+                let link = `https://${library_id_object.library_id.library_id_0}.evanced.info/signup/eventdetails?eventid=${props.attributes.calendar_id}&lib=0`;
                 const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
                 const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
