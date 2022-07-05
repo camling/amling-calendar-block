@@ -85,15 +85,20 @@ wp.blocks.registerBlockType("amling/demo-block",{
        
     }
 
-        return wp.element.createElement("div", null, wp.element.createElement("h3", null, "Enter Calendar Event ID"), wp.element.createElement("input", {
-            type: "text",
-            value: props.attributes.calendar_id,
-            onChange: update_content
-          }), wp.element.createElement("input", {
-            type: "button",
-            value: "Get Data",
-            onClick: get_calendar_data
-          }));
+        return (wp.element.createElement("div", null, 
+                wp.element.createElement("select",{}, 
+                  wp.element.createElement("option", {value: "A"}, "Option A"), ),
+                wp.element.createElement("h3", null, "Enter Calendar Event ID"), 
+                wp.element.createElement("input", {
+                  type: "text",
+                  value: props.attributes.calendar_id,
+                   onChange: update_content
+                  }), 
+                wp.element.createElement("input", {
+                  type: "button",
+                  value: "Get Data",
+                  onClick: get_calendar_data
+          })));
     },
     // calls this function when the block is saved and outputs the html
     save: function(props){
