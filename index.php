@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Amling Calendar Plugin
  * Author: Chris Amling
- * Version: 1.1.0
+ * Version: 1.2.0
  * Description: This is a plugin that interacts with the Evanced Calendar system. It creates a custom block named Calendar Details that displays event information based on the event id passed to it.
  */
 
