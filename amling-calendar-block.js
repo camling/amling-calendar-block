@@ -1,4 +1,32 @@
+function get_current_events()
+    {
+      async function fetchAllCalendarEvents() 
+        {
+          
+       
+            const response = await fetch('https://'+library_id_object.library_id.library_id_0+'.evanced.info/api/signup/eventlist?isOngoingVisible=true&isSpacesReservationVisible=false&onlyRegistrationEnabled=false&onlyFeaturedEvents=false');
+            if (!response.ok) {
+              const message = `An error has occurred: ${response.status}`;
+              throw new Error(message);
+            }
+            const events = await response.json();
+            return events;
+        }
+        let all_events = fetchAllCalendarEvents();
+    
+        return all_events;
+    
+    }
 
+    let event_array = [];
+    get_current_events().then(events => {
+      
+      events.forEach(event => {
+        event_array.push({"id":event.EventId, "title":event.Title});
+      });
+    
+    });
+    console.log(event_array);  // delete
 
 wp.blocks.registerBlockType("amling/demo-block",{
     title: "Calendar Details" ,
@@ -18,12 +46,6 @@ wp.blocks.registerBlockType("amling/demo-block",{
     
     // calls this function when the block is edited
     edit: function(props){
-
-      console.log("edit function called");
-
-      function update_id(e) {
-        props.setAttributes({calendar_id: e.target.value});  
-      }
 
         function update_content(e) {
           // console.log(e);
@@ -93,48 +115,38 @@ wp.blocks.registerBlockType("amling/demo-block",{
        
     }
 
-    function get_current_events()
-    {
-      async function fetchAllCalendarEvents() 
-        {
-          
-       
-            const response = await fetch('https://'+library_id_object.library_id.library_id_0+'.evanced.info/api/signup/eventlist?isOngoingVisible=true&isSpacesReservationVisible=false&onlyRegistrationEnabled=false&onlyFeaturedEvents=false');
-            if (!response.ok) {
-              const message = `An error has occurred: ${response.status}`;
-              throw new Error(message);
-            }
-            const events = await response.json();
-            return events;
-        }
-        let all_events = fetchAllCalendarEvents();
+  //   let mytest =  wp.element.createElement("select",{onChange: update_content}, 
+  //   wp.element.createElement("option", {disabled:true, selected:true, value:"none"},"select an option"),
     
-        return all_events;
+  //   event_array.forEach(event => { wp.element.createElement("option", {value: event.id}, event.title) })
+   
+  //   wp.element.createElement("option", {value: 41859}, "Option B")
     
-    }
+  // );
 
-    // let event_array = get_current_events();
-    // console.log(event_array);
 
-        return (wp.element.createElement("div", null, 
-                wp.element.createElement("select",{onChange: update_id}, 
+        return  (wp.element.createElement("div", null,           
+                  wp.element.createElement("h3", null, "Enter Calendar Event ID"), 
+                  wp.element.createElement("select",{onChange: update_content},
                   wp.element.createElement("option", {disabled:true, selected:true, value:"none"},"select an option"),
+                  wp.element.createElement("option", {value: 41859}, "Option B"),
+                  // event_array.map((value, index) => {  // NEEDS FIXING
+                  //   return wp.element.createElement("option", {
+                  //     key: index
+                  //   }, value);
+                  // }),
 
-                  wp.element.createElement("option", {value: 2551158}, "Option A"), 
-                  wp.element.createElement("option", {value: 41859}, "Option B")
-                  
-                ), 
-                wp.element.createElement("h3", null, "Enter Calendar Event ID"), 
-                wp.element.createElement("input", {
-                  type: "text",
-                  value: props.attributes.calendar_id,
-                   onChange: update_content
+                  wp.element.createElement("input", {
+                    type: "text",
+                    value: props.attributes.calendar_id,
+                    onChange: update_content
                   }), 
-                wp.element.createElement("input", {
-                  type: "button",
-                  value: "Get Data",
-                  onClick: get_calendar_data
-          })));
+                  wp.element.createElement("input", {
+                    type: "button",
+                    value: "Get Data",
+                    onClick: get_calendar_data
+          })
+        )));
     }, //End Edit
 
     // calls this function when the block is saved and outputs the html
