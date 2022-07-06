@@ -115,40 +115,33 @@ wp.blocks.registerBlockType("amling/demo-block",{
        
     }
 
-  //   let mytest =  wp.element.createElement("select",{onChange: update_content}, 
-  //   wp.element.createElement("option", {disabled:true, selected:true, value:"none"},"select an option"),
+
+          function makeOptions(event)
+          {
+            return wp.element.createElement("option", {value: event.id}, event.title);
+          }
+
+
+          return  (
+          wp.element.createElement("div", null,           
+            wp.element.createElement("h3", null, "Enter Calendar Event ID"), 
+            wp.element.createElement("select",{onChange: update_content},
+              wp.element.createElement("option", {disabled:true, selected:true, value:"none"},"select an option"),
+              event_array.map(makeOptions)
+              ),
+          wp.element.createElement("input", {
+            type: "text",
+            value: props.attributes.calendar_id,
+            onChange: update_content
+          }), 
+          wp.element.createElement("input", {
+            type: "button",
+            value: "Get Data",
+            onClick: get_calendar_data
+        })));
+        }, //End Edit
+
     
-  //   event_array.forEach(event => { wp.element.createElement("option", {value: event.id}, event.title) })
-   
-  //   wp.element.createElement("option", {value: 41859}, "Option B")
-    
-  // );
-
-
-        return  (wp.element.createElement("div", null,           
-                  wp.element.createElement("h3", null, "Enter Calendar Event ID"), 
-                  wp.element.createElement("select",{onChange: update_content},
-                  wp.element.createElement("option", {disabled:true, selected:true, value:"none"},"select an option"),
-                  wp.element.createElement("option", {value: 41859}, "Option B"),
-                  // event_array.map((value, index) => {  // NEEDS FIXING
-                  //   return wp.element.createElement("option", {
-                  //     key: index
-                  //   }, value);
-                  // }),
-
-                  wp.element.createElement("input", {
-                    type: "text",
-                    value: props.attributes.calendar_id,
-                    onChange: update_content
-                  }), 
-                  wp.element.createElement("input", {
-                    type: "button",
-                    value: "Get Data",
-                    onClick: get_calendar_data
-          })
-        )));
-    }, //End Edit
-
     // calls this function when the block is saved and outputs the html
     save: function(props){
         function write_calendar_data()
