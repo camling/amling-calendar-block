@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Amling Calendar Plugin
  * Author: Chris Amling
- * Version: 1.2.0
+ * Version: 1.2.1
  * Description: This is a plugin that interacts with the Evanced Calendar system. It creates a custom block named Calendar Details that displays event information based on the event id passed to it.
  */
 
@@ -33,7 +33,8 @@ add_action( 'block_categories', 'adding_amling_block_category', 10, 2 );
 
 
      $script_params = array(
-        'library_id' => get_option('calendar_block_options_option_name')
+        'library_id' => get_option('calendar_block_options_option_name'),
+		'siteurl' => get_option('siteurl')
     );
 
     wp_localize_script('amling-plugin-unique-handle', 'library_id_object', $script_params);
@@ -68,7 +69,7 @@ add_action( 'block_categories', 'adding_amling_block_category', 10, 2 );
 
 		<div class="wrap">
 			<h2>Calendar Block Options</h2>
-			<p></p>
+			<p>Enter you're Evanced library ID below. You can get it from your calendars URL.  Example: https://YOURLIBRARYID.evanced.info/signup  </p>
 			<?php settings_errors(); ?>
 
 			<form method="post" action="options.php">
@@ -95,6 +96,7 @@ add_action( 'block_categories', 'adding_amling_block_category', 10, 2 );
 			'calendar-block-options-admin' // page
 		);
 
+		
 		add_settings_field(
 			'library_id_0', // id
 			'Library ID', // title
