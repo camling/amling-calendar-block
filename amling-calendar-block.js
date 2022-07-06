@@ -89,6 +89,11 @@ wp.blocks.registerBlockType("amling/calendar-block",{
     // calls this function when the block is edited
     edit: function(props){
 
+      if(library_id_object.library_id.library_id_0 == null || library_id_object.library_id.library_id_0.length === 0)
+      {
+        alert("Please enter your library ID at "+library_id_object.siteurl+"/wp-admin/admin.php?page=calendar-block-options");
+      }
+
         function update_content(e) {
           // console.log(e);
             props.setAttributes({calendar_id: e.target.value});  
