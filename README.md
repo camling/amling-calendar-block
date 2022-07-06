@@ -1,5 +1,5 @@
 # WordPress Custom Block Calendar Plugin for Evanced Signups
-A WordPress Plugin that works with the Evanced Signups calendar to create custom event blocks
+A WordPress Plugin that works with the Evanced Signups calendar for public libraries to create custom event blocks
 
 ## About
 
