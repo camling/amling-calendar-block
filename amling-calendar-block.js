@@ -72,7 +72,7 @@ wp.blocks.registerBlockType("amling/calendar-block",{
     title: "Calendar Details" ,
     description: "User enters calendar id and gets calendar data back which is added to page",
     icon: "tide",  // WordPress dashicons 
-    category: "awesome-blocks", // Under which block category your block will be. I'm making mine awesome
+    category: "amling-blocks", // Under which block category your block will be.
     attributes: {
         calendar_id: {type: "string"},
         calendar_select: {type: "string"},
