@@ -72,7 +72,7 @@ wp.blocks.registerBlockType("amling/calendar-block",{
     title: "Calendar Details" ,
     description: "User enters calendar id and gets calendar data back which is added to page",
     icon: "tide",  // WordPress dashicons 
-    category: "awesome-blocks", // Under which block category your block will be. I'm making mine awesome
+    category: "amling-blocks", // Under which block category your block will be.
     attributes: {
         calendar_id: {type: "string"},
         calendar_select: {type: "string"},
@@ -88,6 +88,11 @@ wp.blocks.registerBlockType("amling/calendar-block",{
     
     // calls this function when the block is edited
     edit: function(props){
+
+      if(library_id_object.library_id.library_id_0 == null || library_id_object.library_id.library_id_0.length === 0)
+      {
+        alert("Please enter your library ID at "+library_id_object.siteurl+"/wp-admin/admin.php?page=calendar-block-options");
+      }
 
         function update_content(e) {
           // console.log(e);
