@@ -3,7 +3,7 @@ A WordPress Plugin that works with the Evanced Signups calendar for public libra
 
 ## About
 
-Uusing a custom WordPress block choose from the latest events from your Signups calendar or enter the ID of an event and have the content added to your block automaticlly. 
+Using a custom WordPress block choose from the latest events from your Signups calendar or enter the ID of an event and have the content added to your block automaticlly. 
 
 
 ## Installation / Usage
